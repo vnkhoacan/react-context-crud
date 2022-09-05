@@ -10,21 +10,25 @@ import EmployeeDataService from '../services/employee.service';
 export const getAllEmployee = async () => {
     try {
         const res = await EmployeeDataService.getAll();
-        const data = await res.data.data.data;
+        const data = await res.data;
         return {
             type: GET_ALL_EMPLOYEE,
             payload: data
         }
     } catch (err) {
         console.log(err)
+        return {
+            type: GET_ALL_EMPLOYEE,
+            payload: []
+        }
     }
 }
 
 export const addEmployee = async(employee) => {
     try {
         const res = await EmployeeDataService.create(employee)
-        console.log(res)
-        const data = await res.data.data;
+        const data = await res.data;
+        console.log(data)
         return {
             type: ADD_EMPLOYEE,
             payload: data
@@ -37,7 +41,7 @@ export const addEmployee = async(employee) => {
 export const editEmployee = async(id, employee) => {
     try {
         const res = await EmployeeDataService.update(id, employee)
-        const data = await res.data.data
+        const data = await res.data
         return {
             type: EDIT_EMPLOYEE,
             payload: data
